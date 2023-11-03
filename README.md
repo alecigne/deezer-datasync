@@ -1,5 +1,7 @@
 # `deezer-datasync` :musical_note::floppy_disk:
 
+[![Multi-Arch Build and Push](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml)
+
 `deezer-datasync` synchronizes data from Deezer:
 
 - Favorite albums
@@ -81,8 +83,8 @@ config {
 
 ## Option 1: Run with Docker
 
-A multiplatform image (AMD64, ARM64 -- for execution e.g. on a Raspberry Pi) is available on
-Dockerhub:
+A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is available on
+[Dockerhub](https://hub.docker.com/repository/docker/alecigne/deezer-datasync/general):
 
 ```
 docker pull alecigne/deezer-datasync:latest
