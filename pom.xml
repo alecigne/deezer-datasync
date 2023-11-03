@@ -15,7 +15,7 @@
     <retrofit.version>2.9.0</retrofit.version>
     <okhttp.version>4.12.0</okhttp.version>
     <logback.version>1.4.11</logback.version>
-    <maven.testing.version>2.22.2</maven.testing.version>
+    <maven.testing.version>3.2.1</maven.testing.version>
     <junit.version>5.10.0</junit.version>
   </properties>
 
@@ -81,7 +81,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.23.1</version>
+      <version>3.24.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -93,7 +93,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.6.0</version>
+      <version>5.7.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
