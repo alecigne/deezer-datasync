@@ -51,7 +51,8 @@ the number of elements per request.
 ### Deezer token
 
 You'll need a Deezer token to use this application. You can follow Deezer's
-instructions [here](https://developers.deezer.com/api/oauth).
+instructions [here](https://developers.deezer.com/api/oauth). I have also written a documentation
+[here](https://lecigne.net/notes/deezer-token.html).
 
 ### Configuration file
 
