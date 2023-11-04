@@ -86,10 +86,11 @@ config {
 A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is available on
 [Dockerhub](https://hub.docker.com/repository/docker/alecigne/deezer-datasync/general):
 
+``` shell
+docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/deezer-datasync
 ```
-docker pull alecigne/deezer-datasync:latest
-docker run -it -v /absolute/path/to/application.conf:/application.conf deezer-datasync
-```
+
+(The image will be downloaded automatically.)
 
 ## Option 2: From a Jar
 
