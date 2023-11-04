@@ -85,7 +85,7 @@ config {
 ## Option 1: Run with Docker
 
 A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is available on
-[Dockerhub](https://hub.docker.com/repository/docker/alecigne/deezer-datasync/general):
+[Dockerhub](https://hub.docker.com/r/alecigne/deezer-datasync):
 
 ``` shell
 docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/deezer-datasync
