@@ -6,8 +6,8 @@
 
 - Favorite albums
 - Favorite artists
-- List of playlists
-- A single favorite playlist (will evolve in a future version)
+- Information about all your playlists
+- A user-defined list of playlists with an associated list of tracks
 
 As of the current version, only GitHub is supported as a backend; the application will commit JSON
 files in this arborescence:
@@ -27,22 +27,6 @@ your-git-repo/
 
 **This project is mainly developed for my personal use and as such, is experimental.** However I'll
 be glad to help if you encounter any [issue](https://github.com/alecigne/deezer-datasync/issues).
-
-Please note that:
-
-> The number of requests per second is limited to 50 requests / 5
-> seconds. ([Deezer](https://developers.deezer.com/api))
-
-In its current version, the application is not rate-limited so you might reach Deezer's limitation
-if not careful. For example:
-
-- 700 albums
-- 150 artists
-- 50 playlists
-- 1 playlist with 500 tracks
-
-...at 200 items/request will result in 4 + 1 + 1 + 3 = 9 requests. See config file below to increase
-the number of elements per request.
 
 # Usage
 
@@ -67,12 +51,14 @@ config {
   deezer {
     profile {
       userId = your-user-id
-      playlistId = a-playlist-of-your-choice
+      playlistIds = [id1, id2]
     }
     url = "https://api.deezer.com"
     token = your-deezer-token
     // Maximum number of results per request. 100 is a hard minimum to limit the number of requests.
-    limit = 200
+    maxResults = 200
+    // Number of calls per second to the API. 10 is a hard maximum to avoid Deezer's limit (50/5 seconds).
+    rateLimit = 5
   }
   github {
     token = your-github-token
@@ -88,10 +74,12 @@ A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is 
 [Dockerhub](https://hub.docker.com/r/alecigne/deezer-datasync):
 
 ``` shell
+# Pull the latest version of the image
+docker pull alecigne/deezer-datasync:latest
+
+# Run the container with the latest image (check that your config file is compatible!)
 docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/deezer-datasync
 ```
-
-(The image will be downloaded automatically.)
 
 ## Option 2: From a Jar
 

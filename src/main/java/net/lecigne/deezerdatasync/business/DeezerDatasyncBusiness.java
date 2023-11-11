@@ -3,7 +3,7 @@ package net.lecigne.deezerdatasync.business;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig;
-import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.DeezerProfile.Profile;
+import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.Deezer.Profile;
 import net.lecigne.deezerdatasync.model.DeezerData;
 import net.lecigne.deezerdatasync.repository.DeezerDatasyncRepository;
 
@@ -17,7 +17,8 @@ public class DeezerDatasyncBusiness {
   public void sync() {
     log.info("Retrieving data from Deezer...");
     DeezerData data = repository.fetch(deezerProfile);
-    log.info("Got {} albums, {} artists, {} playlists", data.nbAlbums(), data.nbArtists(), data.nbPlaylists());
+    var infoMessage = "Got {} albums, {} artists, {} playlists info, {} playlists";
+    log.info(infoMessage, data.nbAlbums(), data.nbArtists(), data.nbPlaylistsInfo(), data.nbPlaylists());
     log.info("Saving data...");
     repository.sync(data);
     log.info("Done!");

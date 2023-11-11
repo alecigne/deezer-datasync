@@ -8,8 +8,8 @@ import java.util.function.IntFunction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig;
-import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.DeezerProfile;
-import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.DeezerProfile.Profile;
+import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.Deezer;
+import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.Deezer.Profile;
 import net.lecigne.deezerdatasync.model.Album;
 import net.lecigne.deezerdatasync.model.Artist;
 import net.lecigne.deezerdatasync.model.DeezerData;
@@ -25,18 +25,25 @@ public class DeezerRepository {
 
   private final DeezerClient client;
   private final DeezerMapper mapper;
-  private final DeezerProfile deezerProfile;
+  private final Deezer deezer;
 
   public DeezerData fetch(Profile deezerProfile) {
     List<Album> albums;
     List<Artist> artists;
     List<PlaylistInfo> playlistInfos;
-    Playlist playlist;
+    List<Playlist> playlists = new ArrayList<>();
     try {
+      log.debug("\n=== Albums ===");
       albums = getAlbums(deezerProfile.getUserId());
+      log.debug("\n=== Artists ===");
       artists = getArtists(deezerProfile.getUserId());
+      log.debug("\n=== Playlist infos ===");
       playlistInfos = getPlaylists(deezerProfile.getUserId());
-      playlist = getPlaylist(deezerProfile.getPlaylistId());
+      log.debug("\n=== Playlists ===");
+      for (String playlistId : deezerProfile.getPlaylistIds()) {
+        Playlist playlist = getPlaylist(playlistId);
+        playlists.add(playlist);
+      }
     } catch (IOException e) {
       log.error("Error while fetching Deezer data", e);
       throw new RuntimeException(e);
@@ -45,7 +52,7 @@ public class DeezerRepository {
         .albums(albums)
         .artists(artists)
         .playlistInfos(playlistInfos)
-        .playlists(List.of(playlist))
+        .playlists(playlists)
         .build();
   }
 
@@ -62,7 +69,8 @@ public class DeezerRepository {
   }
 
   private Playlist getPlaylist(String playlistId) throws IOException {
-    PlaylistDto individualPlaylist = client.getPlaylist(playlistId, 0).execute().body(); // for playlist info
+    log.debug("Initial call to get info about playlist {}", playlistId);
+    PlaylistDto individualPlaylist = client.getPlaylist(playlistId, 0).execute().body();
     List<Track> tracks = applyCallWithLimit(index -> client.getPlaylist(playlistId, index), mapper::mapFromTrackDtos);
     return mapper.mapFromIndividualPlaylistDto(individualPlaylist, tracks);
   }
@@ -73,13 +81,15 @@ public class DeezerRepository {
   ) throws IOException {
     int index = 0;
     DataContainer<T> firstResponse = call.apply(index).execute().body();
-    int limit = deezerProfile.getLimit();
+    int limit = deezer.getMaxResults();
+    log.debug("First call to API...");
     int total = firstResponse.getTotal();
     int remainingCalls = DeezerDatasyncUtils.computeRemainingCalls(total, limit);
-    log.debug("{} elements to get, {} other calls will be made", total, remainingCalls);
+    log.debug("{} elements to get, {} call(s) in total", total, remainingCalls + 1);
     List<T> allData = new ArrayList<>(firstResponse.getData());
     for (int i = 0; i < remainingCalls; i++) {
       index += limit;
+      log.debug("Another call...");
       DataContainer<T> response = call.apply(index).execute().body();
       allData.addAll(response.getData());
     }

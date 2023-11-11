@@ -3,11 +3,11 @@ package net.lecigne.deezerdatasync.config;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class DeezerDatasyncConfig {
   }
 
   private Application application;
-  private DeezerProfile deezer;
+  private Deezer deezer;
   private GitHub github;
 
   @NoArgsConstructor
@@ -46,22 +46,23 @@ public class DeezerDatasyncConfig {
   @NoArgsConstructor
   @Getter
   @Setter
-  public static class DeezerProfile {
+  public static class Deezer {
     private Profile profile;
     private String url;
     private String token;
-    private int limit;
+    private int maxResults;
+    private int rateLimit;
 
     @NoArgsConstructor
     @Getter
     @Setter
     public static class Profile {
       private String userId;
-      private String playlistId;
+      private List<String> playlistIds;
 
       @Override
       public String toString() {
-        return String.format("[userId = %s, playlistId = %s]", userId, playlistId);
+        return String.format("[userId = %s, playlistIds = %s]", userId, playlistIds);
       }
     }
   }

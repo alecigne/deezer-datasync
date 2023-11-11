@@ -18,8 +18,12 @@ public record DeezerData(
     return artists.size();
   }
 
-  public long nbPlaylists() {
+  public long nbPlaylistsInfo() {
     return playlistInfos.size();
+  }
+
+  public long nbPlaylists() {
+    return playlists.size();
   }
 
 }

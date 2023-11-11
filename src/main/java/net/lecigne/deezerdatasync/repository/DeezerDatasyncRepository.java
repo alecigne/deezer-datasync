@@ -2,7 +2,7 @@ package net.lecigne.deezerdatasync.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig;
-import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.DeezerProfile.Profile;
+import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.Deezer.Profile;
 import net.lecigne.deezerdatasync.model.DeezerData;
 import net.lecigne.deezerdatasync.repository.deezer.DeezerRepository;
 import net.lecigne.deezerdatasync.repository.destinations.SyncDestination;
