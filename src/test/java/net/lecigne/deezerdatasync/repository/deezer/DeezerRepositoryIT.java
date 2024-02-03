@@ -48,8 +48,8 @@ class DeezerRepositoryIT {
   @BeforeEach
   void setUp() {
     config = getTestConfig(mockWebServer.getPort());
-    DeezerClient client = DeezerClient.init(config.getDeezer());
-    deezerRepository = new DeezerRepository(client, new DeezerMapper(config), config.getDeezer());
+    DeezerLoopingClient client = DeezerLoopingClient.init(config);
+    deezerRepository = new DeezerRepository(client, new DeezerMapper(config));
   }
 
   @Test

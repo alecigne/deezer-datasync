@@ -6,7 +6,7 @@ RUN ./mvnw clean verify
 
 # Alpine + JRE installation just to use an image that supports many architectures
 FROM debian:bullseye-slim
-RUN apt update && apt install -y openjdk-17-jre-headless
+RUN apt update && apt install -y openjdk-17-jre-headless && apt clean
 RUN useradd -ms /bin/bash appuser
 USER appuser
 WORKDIR /app

@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-interface DeezerClient {
+interface DeezerApi {
 
   int MIN_RESULTS = 100;
   int MAX_RATE = 10;
@@ -30,7 +30,7 @@ interface DeezerClient {
   @GET("/playlist/{playlistId}")
   Call<PlaylistDto> getPlaylist(@Path("playlistId") String playlistId, @Query("index") int index);
 
-  static DeezerClient init(Deezer deezer) {
+  static DeezerApi init(Deezer deezer) {
     return new Retrofit.Builder()
         .baseUrl(deezer.getUrl())
         .client(new OkHttpClient().newBuilder()
@@ -47,7 +47,7 @@ interface DeezerClient {
             .build())
         .addConverterFactory(JacksonConverterFactory.create(OBJECT_MAPPER))
         .build()
-        .create(DeezerClient.class);
+        .create(DeezerApi.class);
   }
 
 }

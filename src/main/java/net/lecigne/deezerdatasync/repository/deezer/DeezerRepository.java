@@ -3,29 +3,25 @@ package net.lecigne.deezerdatasync.repository.deezer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.IntFunction;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig;
-import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.Deezer;
 import net.lecigne.deezerdatasync.config.DeezerDatasyncConfig.Deezer.Profile;
 import net.lecigne.deezerdatasync.model.Album;
 import net.lecigne.deezerdatasync.model.Artist;
 import net.lecigne.deezerdatasync.model.DeezerData;
 import net.lecigne.deezerdatasync.model.Playlist;
 import net.lecigne.deezerdatasync.model.PlaylistInfo;
-import net.lecigne.deezerdatasync.model.Track;
-import net.lecigne.deezerdatasync.utils.DeezerDatasyncUtils;
-import retrofit2.Call;
+import net.lecigne.deezerdatasync.utils.Extensions;
 
 @RequiredArgsConstructor
 @Slf4j
+@ExtensionMethod(Extensions.class)
 public class DeezerRepository {
 
-  private final DeezerClient client;
+  private final DeezerLoopingClient client;
   private final DeezerMapper mapper;
-  private final Deezer deezer;
 
   public DeezerData fetch(Profile deezerProfile) {
     List<Album> albums;
@@ -38,9 +34,12 @@ public class DeezerRepository {
       log.debug("\n=== Artists ===");
       artists = getArtists(deezerProfile.getUserId());
       log.debug("\n=== Playlist infos ===");
-      playlistInfos = getPlaylists(deezerProfile.getUserId());
+      playlistInfos = getPlaylistInfos(deezerProfile.getUserId());
       log.debug("\n=== Playlists ===");
-      for (String playlistId : deezerProfile.getPlaylistIds()) {
+      List<String> ids = deezerProfile
+          .getPlaylistIds()
+          .ifEmpty(playlistInfos.stream().map(p -> String.valueOf(p.getDeezerId())).toList());
+      for (String playlistId : ids) {
         Playlist playlist = getPlaylist(playlistId);
         playlists.add(playlist);
       }
@@ -57,49 +56,29 @@ public class DeezerRepository {
   }
 
   private List<Album> getAlbums(String userId) throws IOException {
-    return applyCallWithLimit(index -> client.getAlbums(userId, index), mapper::mapFromAlbumDtos);
+    List<AlbumDto> albums = client.getAlbums(userId);
+    return mapper.mapFromAlbumDtos(albums);
   }
 
   private List<Artist> getArtists(String userId) throws IOException {
-    return applyCallWithLimit(index -> client.getArtists(userId, index), mapper::mapFromFavoriteArtistsDtos);
+    List<ArtistDto> artists = client.getArtists(userId);
+    return mapper.mapFromArtistsDtos(artists);
   }
 
-  private List<PlaylistInfo> getPlaylists(String userId) throws IOException {
-    return applyCallWithLimit(index -> client.getPlaylists(userId, index), mapper::mapFromPlaylistDtos);
+  private List<PlaylistInfo> getPlaylistInfos(String userId) throws IOException {
+    List<PlaylistInfoDto> playlists = client.getPlaylists(userId);
+    return mapper.mapFromPlaylistDtos(playlists);
   }
 
   private Playlist getPlaylist(String playlistId) throws IOException {
-    log.debug("Initial call to get info about playlist {}", playlistId);
-    PlaylistDto individualPlaylist = client.getPlaylist(playlistId, 0).execute().body();
-    List<Track> tracks = applyCallWithLimit(index -> client.getPlaylist(playlistId, index), mapper::mapFromTrackDtos);
-    return mapper.mapFromIndividualPlaylistDto(individualPlaylist, tracks);
-  }
-
-  private <T, U> List<U> applyCallWithLimit(
-      IntFunction<Call<? extends DataContainer<T>>> call,
-      Function<List<T>, List<U>> mapping
-  ) throws IOException {
-    int index = 0;
-    DataContainer<T> firstResponse = call.apply(index).execute().body();
-    int limit = deezer.getMaxResults();
-    log.debug("First call to API...");
-    int total = firstResponse.getTotal();
-    int remainingCalls = DeezerDatasyncUtils.computeRemainingCalls(total, limit);
-    log.debug("{} elements to get, {} call(s) in total", total, remainingCalls + 1);
-    List<T> allData = new ArrayList<>(firstResponse.getData());
-    for (int i = 0; i < remainingCalls; i++) {
-      index += limit;
-      log.debug("Another call...");
-      DataContainer<T> response = call.apply(index).execute().body();
-      allData.addAll(response.getData());
-    }
-    return mapping.apply(allData);
+    PlaylistWithTracksDto playlist = client.getPlaylist(playlistId);
+    return mapper.mapFromPlaylistWithTracksDto(playlist);
   }
 
   public static DeezerRepository init(DeezerDatasyncConfig config) {
-    var deezerClient = DeezerClient.init(config.getDeezer());
+    var deezerLoopingClient = DeezerLoopingClient.init(config);
     var mapper = new DeezerMapper(config);
-    return new DeezerRepository(deezerClient, mapper, config.getDeezer());
+    return new DeezerRepository(deezerLoopingClient, mapper);
   }
 
 }

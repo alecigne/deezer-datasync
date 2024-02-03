@@ -32,11 +32,11 @@ class DeezerMapper {
         .build();
   }
 
-  List<Artist> mapFromFavoriteArtistsDtos(List<ArtistDto> favoriteArtistDtos) {
-    return favoriteArtistDtos.stream().map(this::mapFromFavoriteArtistDto).toList();
+  List<Artist> mapFromArtistsDtos(List<ArtistDto> favoriteArtistDtos) {
+    return favoriteArtistDtos.stream().map(this::mapArtistDto).toList();
   }
 
-  private Artist mapFromFavoriteArtistDto(ArtistDto favoriteArtistDto) {
+  private Artist mapArtistDto(ArtistDto favoriteArtistDto) {
     return Artist.builder()
         .deezerId(favoriteArtistDto.id())
         .name(favoriteArtistDto.name())
@@ -59,22 +59,37 @@ class DeezerMapper {
         .build();
   }
 
-  Playlist mapFromIndividualPlaylistDto(PlaylistDto playlistDto, List<Track> tracks) {
-    return Playlist.builder()
-        .deezerId(playlistDto.id())
+  PlaylistWithTracksDto mapFromIndividualPlaylistDto(PlaylistDto playlistDto, List<TrackDto> tracks) {
+    return PlaylistWithTracksDto.builder()
+        .id(playlistDto.id())
         .title(playlistDto.title())
         .description(playlistDto.description())
-        .duration(Duration.ofSeconds(playlistDto.durationInSeconds()))
+        .durationInSeconds(playlistDto.durationInSeconds())
         .nbTracks(playlistDto.nbTracks())
         .fans(playlistDto.fans())
-        .creationTimeUtc(getInstant(playlistDto.creationDate()))
+        .creationDate(playlistDto.creationDate())
         .tracks(tracks)
+        .build();
+  }
+
+  Playlist mapFromPlaylistWithTracksDto(PlaylistWithTracksDto playlistWithTracksDto) {
+    return Playlist.builder()
+        .deezerId(playlistWithTracksDto.id())
+        .title(playlistWithTracksDto.title())
+        .description(playlistWithTracksDto.description())
+        .duration(Duration.ofSeconds(playlistWithTracksDto.durationInSeconds()))
+        .nbTracks(playlistWithTracksDto.nbTracks())
+        .fans(playlistWithTracksDto.fans())
+        .creationTimeUtc(getInstant(playlistWithTracksDto.creationDate()))
+        .tracks(mapFromTrackDtos(playlistWithTracksDto.tracks()))
         .build();
   }
 
   private Instant getInstant(String date) {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    return LocalDateTime.parse(date, dateTimeFormatter).atZone(ZoneId.of(config.getApplication().getZone())).toInstant();
+    return LocalDateTime.parse(date, dateTimeFormatter)
+        .atZone(ZoneId.of(config.getApplication().getZone()))
+        .toInstant();
   }
 
   public List<Track> mapFromTrackDtos(List<TrackDto> trackDto) {

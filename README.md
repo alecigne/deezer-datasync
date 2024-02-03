@@ -6,8 +6,8 @@
 
 - Favorite albums
 - Favorite artists
-- Information about all your playlists
-- A user-defined list of playlists with an associated list of tracks
+- List of playlists
+- Individual playlists with their associated tracks
 
 As of the current version, only GitHub is supported as a backend; the application will commit JSON
 files in this arborescence:
@@ -51,6 +51,7 @@ config {
   deezer {
     profile {
       userId = your-user-id
+      // Playlists to backup -- leave empty to backup *all* your playlists
       playlistIds = [id1, id2]
     }
     url = "https://api.deezer.com"

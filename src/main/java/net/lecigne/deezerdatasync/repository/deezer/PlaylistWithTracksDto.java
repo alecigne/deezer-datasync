@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Builder;
 
 @Builder
-record PlaylistDto(
+record PlaylistWithTracksDto(
     long id,
     String title,
     String description,
@@ -16,17 +16,6 @@ record PlaylistDto(
     long fans,
     @JsonProperty("creation_date")
     String creationDate,
-    DeezerWrapper<TrackDto> tracks
-) implements DataContainer<TrackDto> {
-
-  @Override
-  public List<TrackDto> getData() {
-    return tracks.getData();
-  }
-
-  @Override
-  public int getTotal() {
-    return nbTracks;
-  }
-
+    List<TrackDto> tracks
+) {
 }
