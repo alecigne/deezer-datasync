@@ -5,4 +5,5 @@ target
 .git
 Dockerfile
 README.md
+CHANGELOG.md
 .github

@@ -23,6 +23,8 @@ your-git-repo/
 └── playlists.json
 ```
 
+See the [changelog](CHANGELOG.md).
+
 # Disclaimer
 
 **This project is mainly developed for my personal use and as such, is experimental.** However I'll
