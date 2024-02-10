@@ -406,7 +406,7 @@ public final class Fixtures {
         .gitHubFiles(List.of(
             GitHubFile.builder()
                 .path("albums.json")
-                .content("[\n"
+                .rawContent("[\n"
                          + "  {\n"
                          + "    \"deezerId\": 1,\n"
                          + "    \"artist\": \"artist\",\n"
@@ -417,7 +417,7 @@ public final class Fixtures {
                 .build(),
             GitHubFile.builder()
                 .path("artists.json")
-                .content("[\n"
+                .rawContent("[\n"
                          + "  {\n"
                          + "    \"deezerId\": 1,\n"
                          + "    \"name\": \"name\",\n"
@@ -427,7 +427,7 @@ public final class Fixtures {
                 .build(),
             GitHubFile.builder()
                 .path("playlists.json")
-                .content("[\n"
+                .rawContent("[\n"
                          + "  {\n"
                          + "    \"deezerId\": 10,\n"
                          + "    \"title\": \"title\",\n"
@@ -440,7 +440,7 @@ public final class Fixtures {
                 .build(),
             GitHubFile.builder()
                 .path("playlists/10.json")
-                .content("{\n"
+                .rawContent("{\n"
                          + "  \"deezerId\": 10,\n"
                          + "  \"title\": \"title\",\n"
                          + "  \"duration\": \"PT24H\",\n"

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class GitHubMapperTest {
 
   @Test
-  void should_map_deezer_data_to_github_backup() throws JsonProcessingException {
+  void should_map_deezer_data_to_github_backup() {
     // Given
     DeezerData deezerData = Fixtures.getInput();
     GitHubBackup expectedBackup = Fixtures.getBackup();
