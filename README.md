@@ -1,6 +1,6 @@
 # `deezer-datasync` :musical_note::floppy_disk:
 
-[![Multi-Arch Build and Push](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml)
+[![Build and publish Docker image](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml)
 
 `deezer-datasync` synchronizes data from Deezer:
 
