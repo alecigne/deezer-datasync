@@ -439,7 +439,7 @@ public final class Fixtures {
                          + "]")
                 .build(),
             GitHubFile.builder()
-                .path("playlists/10.json")
+                .path("playlists/10_title.json")
                 .rawContent("{\n"
                          + "  \"deezerId\": 10,\n"
                          + "  \"title\": \"title\",\n"

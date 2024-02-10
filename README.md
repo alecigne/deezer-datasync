@@ -15,8 +15,8 @@ files in this arborescence:
 ```
 your-git-repo/
 ├── playlists/
-│   ├── id1.json
-│   ├── id2.json
+│   ├── {id}_{title}.json
+│   ├── {id}_{title}.json
 │   ├── [...]
 ├── albums.json
 ├── artists.json
@@ -96,3 +96,16 @@ java -jar -Dconfig.file=/path/to/application.conf deezer-datasync.jar
 ## Option 3: Build from source
 
 You probably know what you're doing anyway :slightly_smiling_face:
+
+# Notes
+
+Playlist filenames (`{id}_{title}.json`) are generated from "clean" playlist titles:
+
+* The title is converted to lowercase.
+* Any group of non-alphanumeric characters (size 1 or more) is converted to an underscore.
+* Any trailing underscore is removed from the title.
+
+You can see basic cases in issue #28. This issue was the basis for the parameterized test
+in `GitHubMapperTest.java`. There is also
+a [property-based test](https://en.wikipedia.org/wiki/Software_testing#Property_testing)
+in `GitHubMapperPropertyTest.java`.

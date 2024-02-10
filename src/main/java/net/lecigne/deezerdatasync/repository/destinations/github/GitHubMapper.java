@@ -22,7 +22,10 @@ class GitHubMapper {
   }
 
   private static String playlistFilename(Playlist playlist) {
-    return String.format("playlists/%s.json", playlist.getDeezerId());
+    var title = playlist.getTitle().toLowerCase().trim();
+    title = title.replaceAll("[^a-z0-9]+", "_").replaceAll("_+$", "");
+    return String.format("playlists/%s_%s.json", playlist.getDeezerId(), title)
+        .replaceAll("_+", "_");
   }
 
 }
