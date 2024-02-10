@@ -27,7 +27,7 @@ class DeezerDatasyncUtilsTest {
   @ParameterizedTest
   @MethodSource("outliers")
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  void should_not_accept_outliers(int total, int limit) {
+  void should_not_accept_outliers_when_computing_number_of_remaining_calls(int total, int limit) {
     // "When"
     ThrowingCallable throwingCallable = () -> DeezerDatasyncUtils.computeRemainingCalls(total, limit);
 
