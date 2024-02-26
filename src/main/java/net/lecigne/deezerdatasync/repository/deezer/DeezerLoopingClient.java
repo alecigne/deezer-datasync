@@ -50,14 +50,13 @@ public class DeezerLoopingClient {
     int index = 0;
     DataContainer<T> firstResponse = call.apply(index).execute().body();
     int limit = deezer.getMaxResults();
-    log.debug("First call to API...");
     int total = firstResponse.getTotal();
     int remainingCalls = DeezerDatasyncUtils.computeRemainingCalls(total, limit);
     log.debug("{} elements to get, {} call(s) in total", total, remainingCalls + 1);
     List<T> allData = new ArrayList<>(firstResponse.getData());
     for (int i = 0; i < remainingCalls; i++) {
       index += limit;
-      log.debug("Another call...");
+      log.trace("Another call from index {}...", index);
       DataContainer<T> response = call.apply(index).execute().body();
       allData.addAll(response.getData());
     }
