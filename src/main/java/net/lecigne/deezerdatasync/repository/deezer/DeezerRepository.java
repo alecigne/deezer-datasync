@@ -29,13 +29,13 @@ public class DeezerRepository {
     List<PlaylistInfo> playlistInfos;
     List<Playlist> playlists = new ArrayList<>();
     try {
-      log.debug("\n=== Albums ===");
+      log.debug("Fetching albums...");
       albums = getAlbums(deezerProfile.getUserId());
-      log.debug("\n=== Artists ===");
+      log.debug("Fetching artists...");
       artists = getArtists(deezerProfile.getUserId());
-      log.debug("\n=== Playlist infos ===");
+      log.debug("Fetching playlist infos...");
       playlistInfos = getPlaylistInfos(deezerProfile.getUserId());
-      log.debug("\n=== Playlists ===");
+      log.debug("Fetching playlists...");
       List<String> ids = deezerProfile
           .getPlaylistIds()
           .ifEmpty(playlistInfos.stream().map(p -> String.valueOf(p.getDeezerId())).toList());
