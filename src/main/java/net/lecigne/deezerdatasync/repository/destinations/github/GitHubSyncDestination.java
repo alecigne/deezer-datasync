@@ -27,33 +27,52 @@ public class GitHubSyncDestination implements SyncDestination {
   @Override
   public void save(DeezerData deezerData) {
     try {
-      GitHubBackup gitHubBackup = mapper.mapDataToBackup(deezerData);
-      var commitMessage = String.format("Backup %s", LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
-      GitHub github = GitHubBuilder.fromEnvironment()
-          .withConnector(new OkHttpConnector(new OkHttpClient()))
-          .withOAuthToken(config.getGithub().getToken())
-          .build();
-      log.debug("Rate limit: {}", github.getRateLimit().getRemaining());
-      GHRepository repo = github.getRepository(config.getGithub().getRepo());
-      String branch = String.format("heads/%s", config.getGithub().getBranch());
-      String latestCommitSha = repo.getRef(branch).getObject().getSha();
+      GHRepository repo = getRepo();
+      String latestCommitSha = getLatestCommitSha(repo);
       log.debug("Latest commit SHA: {}", latestCommitSha);
-      GHCommit latestCommit = repo.getCommit(latestCommitSha);
-      String baseTreeSha = latestCommit.getTree().getSha();
-      GHTreeBuilder treeBuilder = repo.createTree().baseTree(baseTreeSha);
-      gitHubBackup.getGitHubFiles().forEach(file -> treeBuilder.add(file.getPath(), file.getContent().getBytes(), false));
-      GHTree newTree = treeBuilder.create();
-      GHCommit commit = repo.createCommit()
-          .message(commitMessage)
-          .tree(newTree.getSha())
-          .parent(latestCommitSha)
-          .create();
+      GHTree newTree = createNewTree(repo, deezerData, latestCommitSha);
+      GHCommit commit = createCommit(repo, newTree, latestCommitSha);
       log.debug("New Commit SHA: {}", commit.getSHA1());
-      repo.getRef(branch).updateTo(commit.getSHA1(), false);
+      updateBranch(repo, commit);
     } catch (IOException e) {
       log.error("Error while saving to GitHub", e);
       throw new RuntimeException(e);
     }
+  }
+
+  private GHRepository getRepo() throws IOException {
+    GitHub github = GitHubBuilder.fromEnvironment()
+        .withConnector(new OkHttpConnector(new OkHttpClient()))
+        .withOAuthToken(config.getGithub().getToken())
+        .build();
+    return github.getRepository(config.getGithub().getRepo());
+  }
+
+  private String getLatestCommitSha(GHRepository repo) throws IOException {
+    String branch = String.format("heads/%s", config.getGithub().getBranch());
+    return repo.getRef(branch).getObject().getSha();
+  }
+
+  private GHTree createNewTree(GHRepository repo, DeezerData deezerData, String latestCommitSha) throws IOException {
+    GHCommit latestCommit = repo.getCommit(latestCommitSha);
+    GHTreeBuilder treeBuilder = repo.createTree().baseTree(latestCommit.getTree().getSha());
+    GitHubBackup gitHubBackup = mapper.mapDataToBackup(deezerData);
+    gitHubBackup.getGitHubFiles().forEach(file -> treeBuilder.add(file.getPath(), file.getContent().getBytes(), false));
+    return treeBuilder.create();
+  }
+
+  private GHCommit createCommit(GHRepository repo, GHTree newTree, String latestCommitSha) throws IOException {
+    String commitMessage = String.format("Backup %s", LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+    return repo.createCommit()
+        .message(commitMessage)
+        .tree(newTree.getSha())
+        .parent(latestCommitSha)
+        .create();
+  }
+
+  private void updateBranch(GHRepository repo, GHCommit commit) throws IOException {
+    String branch = String.format("heads/%s", config.getGithub().getBranch());
+    repo.getRef(branch).updateTo(commit.getSHA1(), false);
   }
 
   public static GitHubSyncDestination init(DeezerDatasyncConfig config) {
