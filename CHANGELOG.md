@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.4.1](https://github.com/alecigne/deezer-datasync/tree/v0.4.1) - 2024-05-04
+
+- Update dependencies
+- Improve logging and code readability
+
 ## [v0.4.0](https://github.com/alecigne/deezer-datasync/tree/v0.4.0) - 2024-02-10
 
 Change playlist filename format from `{id}.json` to `{id}_{title}.json`.
