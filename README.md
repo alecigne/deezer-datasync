@@ -105,7 +105,8 @@ Playlist filenames (`{id}_{title}.json`) are generated from "clean" playlist tit
 * Any group of non-alphanumeric characters (size 1 or more) is converted to an underscore.
 * Any trailing underscore is removed from the title.
 
-You can see basic cases in issue #28. This issue was the basis for the parameterized test
+You can see basic cases in [issue #28](https://github.com/alecigne/deezer-datasync/issues/28). This
+issue was the basis for the parameterized test
 in `GitHubMapperTest.java`. There is also
 a [property-based test](https://en.wikipedia.org/wiki/Software_testing#Property_testing)
 in `GitHubMapperPropertyTest.java`.
