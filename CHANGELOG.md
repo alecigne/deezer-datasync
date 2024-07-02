@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.4.2](https://github.com/alecigne/deezer-datasync/tree/v0.4.2) - 2024-07-01
+
+Update dependencies
+
 ## [v0.4.1](https://github.com/alecigne/deezer-datasync/tree/v0.4.1) - 2024-05-04
 
 - Update dependencies
