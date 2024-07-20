@@ -107,6 +107,7 @@ Playlist filenames (`{id}_{title}.json`) are generated from "clean" playlist tit
 
 You can see basic cases in [issue #28](https://github.com/alecigne/deezer-datasync/issues/28). This
 issue was the basis for the parameterized test
-in `GitHubMapperTest.java`. There is also
+in [`GitHubMapperTest.java`](https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperTest.java).
+There is also
 a [property-based test](https://en.wikipedia.org/wiki/Software_testing#Property_testing)
-in `GitHubMapperPropertyTest.java`.
+in [`GitHubMapperPropertyTest.java`](https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java).
