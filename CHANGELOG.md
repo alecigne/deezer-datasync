@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.4.3](https://github.com/alecigne/deezer-datasync/tree/v0.4.3) - 2024-07-20
+
+Update dependencies. Made the switch to Maven Failsafe 3 (and consequently, Maven Surefire 3) by
+finally fixing an error involving modules.
+
 ## [v0.4.2](https://github.com/alecigne/deezer-datasync/tree/v0.4.2) - 2024-07-01
 
 Update dependencies
