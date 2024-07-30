@@ -10,7 +10,6 @@ import net.jqwik.api.Property;
 import net.jqwik.api.constraints.StringLength;
 import net.lecigne.deezerdatasync.model.DeezerData;
 import net.lecigne.deezerdatasync.model.Playlist;
-import org.junit.jupiter.api.DisplayName;
 
 @Label("The GitHub mapper")
 public class GitHubMapperPropertyTest {
