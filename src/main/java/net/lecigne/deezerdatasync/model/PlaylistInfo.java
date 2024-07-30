@@ -1,6 +1,5 @@
 package net.lecigne.deezerdatasync.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.Duration;
 import java.time.Instant;
 import lombok.Getter;
