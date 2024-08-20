@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.1](https://github.com/alecigne/deezer-datasync/tree/v0.5.1) - 2024-08-20
+
+Update dependencies
+
 ## [v0.5.0](https://github.com/alecigne/deezer-datasync/tree/v0.5.0) - 2024-07-30
 
 Do not create empty commits
