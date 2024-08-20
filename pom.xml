@@ -6,7 +6,7 @@
 
   <groupId>net.lecigne</groupId>
   <artifactId>deezer-datasync</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1-SNAPSHOT</version>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
@@ -14,16 +14,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <retrofit.version>2.11.0</retrofit.version>
     <okhttp.version>4.12.0</okhttp.version>
-    <logback.version>1.5.6</logback.version>
-    <maven.testing.version>3.3.1</maven.testing.version>
-    <junit.version>5.10.3</junit.version>
+    <logback.version>1.5.7</logback.version>
+    <maven.testing.version>3.4.0</maven.testing.version>
+    <junit.version>5.11.0</junit.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
-      <version>1.323</version>
+      <version>1.324</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.2.1-jre</version>
+      <version>33.3.0-jre</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
