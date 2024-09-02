@@ -23,12 +23,12 @@ your-git-repo/
 └── playlists.json
 ```
 
-See the [changelog](CHANGELOG.md).
+See the [changelog][1].
 
 # Disclaimer
 
 **This project is mainly developed for my personal use and as such, is experimental.** However I'll
-be glad to help if you encounter any [issue](https://github.com/alecigne/deezer-datasync/issues).
+be glad to help if you encounter any [issue][2].
 
 # Usage
 
@@ -36,14 +36,12 @@ be glad to help if you encounter any [issue](https://github.com/alecigne/deezer-
 
 ### Deezer token
 
-You'll need a Deezer token to use this application. You can follow Deezer's
-instructions [here](https://developers.deezer.com/api/oauth). I have also written a documentation
-[here](https://lecigne.net/notes/deezer-token.html).
+You'll need a Deezer token to use this application. You can follow Deezer's instructions [here][3].
+I have also written a documentation [here][4].
 
 ### Configuration file
 
-Prepare a configuration file in [HOCON](https://github.com/lightbend/config/blob/main/HOCON.md)
-format:
+Prepare a configuration file in [HOCON][5] format:
 
 ``` hocon
 config {
@@ -73,8 +71,8 @@ config {
 
 ## Option 1: Run with Docker
 
-A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is available on
-[Dockerhub](https://hub.docker.com/r/alecigne/deezer-datasync):
+A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is available
+on [Dockerhub][6]:
 
 ``` shell
 # Pull the latest version of the image
@@ -86,8 +84,7 @@ docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/
 
 ## Option 2: From a Jar
 
-Download a Jar in the [releases](https://github.com/alecigne/deezer-datasync/releases) section, then
-run it using Java 17:
+Download a Jar in the [releases][7] section, then run it using Java 17:
 
 ``` shell
 java -jar -Dconfig.file=/path/to/application.conf deezer-datasync.jar
@@ -105,9 +102,28 @@ Playlist filenames (`{id}_{title}.json`) are generated from "clean" playlist tit
 * Any group of non-alphanumeric characters (size 1 or more) is converted to an underscore.
 * Any trailing underscore is removed from the title.
 
-You can see basic cases in [issue #28](https://github.com/alecigne/deezer-datasync/issues/28). This
-issue was the basis for the parameterized test
-in [`GitHubMapperTest.java`](https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperTest.java).
-There is also
-a [property-based test](https://en.wikipedia.org/wiki/Software_testing#Property_testing)
-in [`GitHubMapperPropertyTest.java`](https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java).
+You can see basic cases in [issue #28][8]. This issue was the basis for the parameterized test in
+[`GitHubMapperTest.java`][9]. There is also a [property-based test][10] in
+[`GitHubMapperPropertyTest.java`][11].
+
+[1]: CHANGELOG.md
+
+[2]: https://github.com/alecigne/deezer-datasync/issues
+
+[3]: https://developers.deezer.com/api/oauth
+
+[4]: https://lecigne.net/notes/deezer-token.html
+
+[5]: https://github.com/lightbend/config/blob/main/HOCON.md
+
+[6]: https://hub.docker.com/r/alecigne/deezer-datasync
+
+[7]: https://github.com/alecigne/deezer-datasync/releases
+
+[8]: https://github.com/alecigne/deezer-datasync/issues/28
+
+[9]: https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperTest.java
+
+[10]: https://en.wikipedia.org/wiki/Software_testing#Property_testing
+
+[11]: https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java
