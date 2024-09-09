@@ -14,8 +14,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <retrofit.version>2.11.0</retrofit.version>
     <okhttp.version>4.12.0</okhttp.version>
-    <logback.version>1.5.7</logback.version>
-    <maven.testing.version>3.4.0</maven.testing.version>
+    <logback.version>1.5.8</logback.version>
+    <maven.testing.version>3.5.0</maven.testing.version>
     <junit.version>5.11.0</junit.version>
   </properties>
 
@@ -98,7 +98,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.12.0</version>
+      <version>5.13.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
