@@ -76,7 +76,7 @@ config {
   }
   github {
     token = your-github-token
-    repo = your-repo
+    repo = your-repo // in the format owner/repo
     branch = your-branch
   }
 }
