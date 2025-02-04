@@ -39,6 +39,19 @@ be glad to help if you encounter any [issue][2].
 You'll need a Deezer token to use this application. You can follow Deezer's instructions [here][3].
 I have also written a documentation [here][4].
 
+#### Warning (2025-02-05)
+
+It seems that Deezer has disabled the creation of 'apps':
+
+> We're not accepting new application creation at this time. Please check again later.
+
+This means you can't create the token that this project needs to run. If you have a valid API token
+somewhere, it should work. At least my instance still runs for now. Not for long?
+
+There's nothing I can do about that except encourage you to give your money to another service.
+Hopefully with a logo that won't make you want to tear your eyes out of their sockets with a rusty
+spoon.
+
 ### Configuration file
 
 Prepare a configuration file in [HOCON][5] format:
