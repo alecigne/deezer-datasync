@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.3](https://github.com/alecigne/deezer-datasync/tree/v0.5.3) - 2025-07-12
+
+Update dependencies
+
 ## [v0.5.2](https://github.com/alecigne/deezer-datasync/tree/v0.5.2) - 2025-02-05
 
 - Use `maven-compiler-plugin`

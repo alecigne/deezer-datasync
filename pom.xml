@@ -6,25 +6,25 @@
 
   <groupId>net.lecigne</groupId>
   <artifactId>deezer-datasync</artifactId>
-  <version>0.5.3-SNAPSHOT</version>
+  <version>0.5.3</version>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <retrofit.version>2.11.0</retrofit.version>
+    <retrofit.version>3.0.0</retrofit.version>
     <okhttp.version>4.12.0</okhttp.version>
-    <logback.version>1.5.16</logback.version>
+    <logback.version>1.5.18</logback.version>
     <maven.testing.version>3.5.2</maven.testing.version>
-    <junit.version>5.11.4</junit.version>
-    <lombok.version>1.18.36</lombok.version>
+    <junit.version>5.13.3</junit.version>
+    <lombok.version>1.18.38</lombok.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
-      <version>1.326</version>
+      <version>1.327</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -56,17 +56,17 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.18.2</version>
+      <version>2.19.1</version>
     </dependency>
     <dependency>
       <groupId>com.typesafe</groupId>
       <artifactId>config</artifactId>
-      <version>1.4.3</version>
+      <version>1.4.4</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.4.0-jre</version>
+      <version>33.4.8-jre</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -99,7 +99,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.15.2</version>
+      <version>5.18.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -111,7 +111,7 @@
     <dependency>
       <groupId>net.jqwik</groupId>
       <artifactId>jqwik</artifactId>
-      <version>1.9.2</version>
+      <version>1.9.3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
