@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.5.4](https://github.com/alecigne/deezer-datasync/tree/v0.5.4) - 2025-09-10
+
+- Update dependencies
+- Replace MockWebServer with WireMock in tests
+
 ## [v0.5.3](https://github.com/alecigne/deezer-datasync/tree/v0.5.3) - 2025-07-12
 
 Update dependencies

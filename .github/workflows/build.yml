@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - develop
     paths-ignore:
       - '**/README.md'
       - '**/CHANGELOG.md'
@@ -12,7 +13,8 @@ on:
       - '**'
   pull_request:
     branches:
-      - 'master'
+      - master
+      - develop
 
 jobs:
   build:
