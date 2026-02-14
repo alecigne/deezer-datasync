@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.5](https://github.com/alecigne/deezer-datasync/tree/v0.5.5) - 2026-02-14
+
+Update dependencies.
+
 ## [v0.5.4](https://github.com/alecigne/deezer-datasync/tree/v0.5.4) - 2025-09-10
 
 - Update dependencies

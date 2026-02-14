@@ -6,7 +6,7 @@
 
   <groupId>net.lecigne</groupId>
   <artifactId>deezer-datasync</artifactId>
-  <version>0.5.5-SNAPSHOT</version>
+  <version>0.5.5</version>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
