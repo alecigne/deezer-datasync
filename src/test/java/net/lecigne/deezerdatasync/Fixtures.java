@@ -2,17 +2,15 @@ package net.lecigne.deezerdatasync;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
-import net.lecigne.deezerdatasync.model.Album;
-import net.lecigne.deezerdatasync.model.Artist;
-import net.lecigne.deezerdatasync.model.DeezerData;
-import net.lecigne.deezerdatasync.model.Playlist;
-import net.lecigne.deezerdatasync.model.PlaylistInfo;
-import net.lecigne.deezerdatasync.model.Track;
-import net.lecigne.deezerdatasync.repository.destinations.github.GitHubBackup;
-import net.lecigne.deezerdatasync.repository.destinations.github.GitHubFile;
+import net.lecigne.deezerdatasync.domain.album.Album;
+import net.lecigne.deezerdatasync.domain.album.AlbumId;
+import net.lecigne.deezerdatasync.domain.artist.Artist;
+import net.lecigne.deezerdatasync.domain.common.DeezerData;
+import net.lecigne.deezerdatasync.domain.playlist.Playlist;
+import net.lecigne.deezerdatasync.domain.playlist.PlaylistId;
+import net.lecigne.deezerdatasync.domain.playlist.PlaylistInfo;
+import net.lecigne.deezerdatasync.domain.track.Track;
 
 public final class Fixtures {
 
@@ -21,70 +19,79 @@ public final class Fixtures {
 
   public static DeezerData getTestData() {
     return DeezerData.builder()
-        .albums(getTestAlbums())
-        .artists(getTestArtists())
-        .playlistInfos(getTestPlaylistInfos())
-        .playlists(getTestPlaylists())
+        .albums(albums())
+        .artists(artists())
+        .playlistInfos(playlistInfos())
+        .playlists(List.of(ambientPlaylist()))
         .build();
   }
 
-  private static List<Album> getTestAlbums() {
+  public static DeezerData getServiceTestData() {
+    return DeezerData.builder()
+        .albums(albums())
+        .artists(artists())
+        .playlistInfos(List.of(ambientPlaylistInfo()))
+        .playlists(List.of(ambientPlaylist()))
+        .build();
+  }
+
+  public static List<Album> albums() {
     var transcend = Album.builder()
-        .deezerId(11301648)
+        .albumId(AlbumId.of(11301648))
         .artist("Benedictine Nuns of St. Cecilia's Abbey")
         .title("Transcend")
         .creationTimeUtc(Instant.parse("2023-10-28T10:50:05Z"))
         .build();
     var templeOfTheMeltingDawn = Album.builder()
-        .deezerId(210071572)
+        .albumId(AlbumId.of(210071572L))
         .artist("Steve Roach")
         .title("Temple Of The Melting Dawn")
         .creationTimeUtc(Instant.parse("2023-10-21T04:52:14Z"))
         .build();
     var neogene = Album.builder()
-        .deezerId(286558852)
+        .albumId(AlbumId.of(286558852L))
         .artist("Jarguna")
         .title("Neogene")
         .creationTimeUtc(Instant.parse("2023-10-10T13:29:34Z"))
         .build();
     var ifMemoryServesMe = Album.builder()
-        .deezerId(448896205)
+        .albumId(AlbumId.of(448896205L))
         .artist("Coral Sea")
         .title("If Memory Serves Me")
         .creationTimeUtc(Instant.parse("2023-10-09T20:01:16Z"))
         .build();
     var sakura = Album.builder()
-        .deezerId(307484127)
+        .albumId(AlbumId.of(307484127L))
         .artist("Susumu Yokota")
         .title("Sakura")
         .creationTimeUtc(Instant.parse("2023-09-23T21:09:09Z"))
         .build();
     var soundtrackForImaginarySpaces = Album.builder()
-        .deezerId(47563122)
+        .albumId(AlbumId.of(47563122L))
         .artist("Tonepoet")
         .title("Soundtrack for Imaginary Spaces")
         .creationTimeUtc(Instant.parse("2023-09-21T19:48:40Z"))
         .build();
     var replica = Album.builder()
-        .deezerId(14393696)
+        .albumId(AlbumId.of(14393696L))
         .artist("Oneohtrix Point Never")
         .title("Replica")
         .creationTimeUtc(Instant.parse("2023-09-11T20:16:19Z"))
         .build();
     var chapter3 = Album.builder()
-        .deezerId(462719925)
+        .albumId(AlbumId.of(462719925L))
         .artist("Harbor Tea Rooms")
         .title("Chapter 3")
         .creationTimeUtc(Instant.parse("2023-08-11T00:49:37Z"))
         .build();
     var cityInTheClouds = Album.builder()
-        .deezerId(276610982)
+        .albumId(AlbumId.of(276610982L))
         .artist("Astropilot")
         .title("City in the Clouds")
         .creationTimeUtc(Instant.parse("2023-07-04T21:22:21Z"))
         .build();
     var lunaticHarness = Album.builder()
-        .deezerId(302017)
+        .albumId(AlbumId.of(302017L))
         .artist("µ-Ziq")
         .title("Lunatic Harness")
         .creationTimeUtc(Instant.parse("2023-06-13T19:51:49Z"))
@@ -103,7 +110,7 @@ public final class Fixtures {
     );
   }
 
-  private static List<Artist> getTestArtists() {
+  public static List<Artist> artists() {
     var jarguna = Artist.builder()
         .deezerId(1652024)
         .name("Jarguna")
@@ -168,25 +175,18 @@ public final class Fixtures {
     );
   }
 
-  private static List<PlaylistInfo> getTestPlaylistInfos() {
+  public static List<PlaylistInfo> playlistInfos() {
     var acidHouseAcidTechno = PlaylistInfo.builder()
-        .deezerId(1327063625L)
+        .playlistId(PlaylistId.of(1327063625L))
         .title("Acid House / Acid Techno")
         .duration(Duration.ofSeconds(3807))
         .nbTracks(11)
         .fans(1)
         .creationTimeUtc(Instant.parse("2015-08-04T04:37:15Z"))
         .build();
-    var ambient = PlaylistInfo.builder()
-        .deezerId(10616324822L)
-        .title("Ambient")
-        .duration(Duration.ofSeconds(296472))
-        .nbTracks(527)
-        .fans(1)
-        .creationTimeUtc(Instant.parse("2022-08-14T12:14:58Z"))
-        .build();
+    var ambient = ambientPlaylistInfo();
     var braindanceIllbientDrillAndBass = PlaylistInfo.builder()
-        .deezerId(1327042525L)
+        .playlistId(PlaylistId.of(1327042525L))
         .title("Braindance / Illbient / Drill and Bass")
         .duration(Duration.ofSeconds(8355))
         .nbTracks(28)
@@ -194,7 +194,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2015-08-04T03:46:00Z"))
         .build();
     var breakbeatHardcore = PlaylistInfo.builder()
-        .deezerId(1350754875L)
+        .playlistId(PlaylistId.of(1350754875L))
         .title("Breakbeat Hardcore")
         .duration(Duration.ofSeconds(1466))
         .nbTracks(5)
@@ -202,7 +202,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2015-08-24T12:26:22Z"))
         .build();
     var chansons = PlaylistInfo.builder()
-        .deezerId(10937682782L)
+        .playlistId(PlaylistId.of(10937682782L))
         .title("Chansons")
         .duration(Duration.ofSeconds(479))
         .nbTracks(2)
@@ -210,7 +210,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2022-12-07T00:21:00Z"))
         .build();
     var chicagoHouse = PlaylistInfo.builder()
-        .deezerId(1349861855L)
+        .playlistId(PlaylistId.of(1349861855L))
         .title("Chicago House")
         .duration(Duration.ofSeconds(2398))
         .nbTracks(6)
@@ -218,7 +218,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2015-08-23T17:21:34Z"))
         .build();
     var classical = PlaylistInfo.builder()
-        .deezerId(1260222531L)
+        .playlistId(PlaylistId.of(1260222531L))
         .title("Classical")
         .duration(Duration.ofSeconds(98786))
         .nbTracks(411)
@@ -226,7 +226,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2015-06-05T22:21:05Z"))
         .build();
     var deepHouseSoulfulHouse = PlaylistInfo.builder()
-        .deezerId(1260225631L)
+        .playlistId(PlaylistId.of(1260225631L))
         .title("Deep House/Soulful House")
         .duration(Duration.ofSeconds(37981))
         .nbTracks(92)
@@ -234,7 +234,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2015-06-05T22:25:00Z"))
         .build();
     var disco = PlaylistInfo.builder()
-        .deezerId(1327051755L)
+        .playlistId(PlaylistId.of(1327051755L))
         .title("Disco")
         .duration(Duration.ofSeconds(791))
         .nbTracks(2)
@@ -242,7 +242,7 @@ public final class Fixtures {
         .creationTimeUtc(Instant.parse("2015-08-04T04:07:24Z"))
         .build();
     var discoHouseFunkyHouse = PlaylistInfo.builder()
-        .deezerId(1284839775L)
+        .playlistId(PlaylistId.of(1284839775L))
         .title("Disco House/Funky House")
         .duration(Duration.ofSeconds(8144))
         .nbTracks(24)
@@ -265,7 +265,18 @@ public final class Fixtures {
 
   }
 
-  private static List<Playlist> getTestPlaylists() {
+  public static PlaylistInfo ambientPlaylistInfo() {
+    return PlaylistInfo.builder()
+        .playlistId(PlaylistId.of(10616324822L))
+        .title("Ambient")
+        .duration(Duration.ofSeconds(296472))
+        .nbTracks(527)
+        .fans(1)
+        .creationTimeUtc(Instant.parse("2022-08-14T12:14:58Z"))
+        .build();
+  }
+
+  public static Playlist ambientPlaylist() {
     var filamentAndPlace = Track.builder()
         .deezerId(1324663722)
         .artist("Innesti")
@@ -348,118 +359,17 @@ public final class Fixtures {
         deconsecratedAndPure,
         interstice
     );
-    return List.of(Playlist.builder()
+    return Playlist.builder()
         .description("Mostly drone & dark ambient.")
-        .deezerId(10616324822L)
+        .playlistId(PlaylistId.of(10616324822L))
         .title("Ambient")
         .duration(Duration.ofSeconds(296472))
         .nbTracks(10)
         .fans(1)
         .creationTimeUtc(Instant.parse("2022-08-14T12:14:58Z"))
         .tracks(tracks)
-        .build());
-  }
-
-  public static DeezerData getInput() {
-    Instant instant = LocalDateTime.of(2023, 10, 1, 0, 0, 0).atZone(ZoneId.of("Europe/Paris")).toInstant();
-    return DeezerData.builder()
-        .albums(List.of(Album.builder()
-            .deezerId(1L)
-            .artist("artist")
-            .title("title")
-            .creationTimeUtc(instant)
-            .build()))
-        .artists(List.of(Artist.builder()
-            .deezerId(1L)
-            .name("name")
-            .creationTimeUtc(instant)
-            .build()))
-        .playlistInfos(List.of(PlaylistInfo.builder()
-            .deezerId(10L)
-            .title("title")
-            .duration(Duration.ofSeconds(296472))
-            .nbTracks(10)
-            .fans(1)
-            .creationTimeUtc(instant)
-            .build()))
-        .playlists(List.of(Playlist.builder()
-            .deezerId(10L)
-            .title("title")
-            .description("description")
-            .duration(Duration.ofSeconds(86400))
-            .nbTracks(10)
-            .fans(1)
-            .creationTimeUtc(instant)
-            .tracks(List.of(Track.builder()
-                .deezerId(50L)
-                .artist("artist")
-                .title("title")
-                .album("album")
-                .creationTimeUtc(instant)
-                .build()))
-            .build()))
         .build();
   }
 
-  public static GitHubBackup getBackup() {
-    return GitHubBackup.builder()
-        .gitHubFiles(List.of(
-            GitHubFile.builder()
-                .path("albums.json")
-                .rawContent("[\n"
-                         + "  {\n"
-                         + "    \"deezerId\": 1,\n"
-                         + "    \"artist\": \"artist\",\n"
-                         + "    \"title\": \"title\",\n"
-                         + "    \"creationTimeUtc\": \"2023-09-30T22:00:00Z\"\n"
-                         + "  }\n"
-                         + "]")
-                .build(),
-            GitHubFile.builder()
-                .path("artists.json")
-                .rawContent("[\n"
-                         + "  {\n"
-                         + "    \"deezerId\": 1,\n"
-                         + "    \"name\": \"name\",\n"
-                         + "    \"creationTimeUtc\": \"2023-09-30T22:00:00Z\"\n"
-                         + "  }\n"
-                         + "]")
-                .build(),
-            GitHubFile.builder()
-                .path("playlists.json")
-                .rawContent("[\n"
-                         + "  {\n"
-                         + "    \"deezerId\": 10,\n"
-                         + "    \"title\": \"title\",\n"
-                         + "    \"duration\": \"PT82H21M12S\",\n"
-                         + "    \"nbTracks\": 10,\n"
-                         + "    \"fans\": 1,\n"
-                         + "    \"creationTimeUtc\": \"2023-09-30T22:00:00Z\"\n"
-                         + "  }\n"
-                         + "]")
-                .build(),
-            GitHubFile.builder()
-                .path("playlists/10_title.json")
-                .rawContent("{\n"
-                         + "  \"deezerId\": 10,\n"
-                         + "  \"title\": \"title\",\n"
-                         + "  \"duration\": \"PT24H\",\n"
-                         + "  \"nbTracks\": 10,\n"
-                         + "  \"fans\": 1,\n"
-                         + "  \"creationTimeUtc\": \"2023-09-30T22:00:00Z\",\n"
-                         + "  \"description\": \"description\",\n"
-                         + "  \"tracks\": [\n"
-                         + "    {\n"
-                         + "      \"deezerId\": 50,\n"
-                         + "      \"artist\": \"artist\",\n"
-                         + "      \"title\": \"title\",\n"
-                         + "      \"album\": \"album\",\n"
-                         + "      \"creationTimeUtc\": \"2023-09-30T22:00:00Z\"\n"
-                         + "    }\n"
-                         + "  ]\n"
-                         + "}")
-                .build()))
-        .build();
-  }
 
 }
