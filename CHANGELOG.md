@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.6.0](https://github.com/alecigne/deezer-datasync/tree/v0.6.0) - 2026-02-15
+
+:warning: **This version introduces a breaking change in the configuration file.**
+
+Refactor entire codebase. This version prepares the way for v1.0.0.
+
+- Use hexagonal architecture.
+- Improve Deezer client design and simplify mapping.
+- Introduce config loader with careful validation of parameters. Also make some properties optional.
+- Get rid of a few instances of primitive obsession (using value objects) while keeping final
+  serialized format for now.
+- Improve logging.
+
 ## [v0.5.5](https://github.com/alecigne/deezer-datasync/tree/v0.5.5) - 2026-02-14
 
 Update dependencies.

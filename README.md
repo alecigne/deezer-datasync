@@ -2,7 +2,7 @@
 
 [![Build and publish Docker image](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alecigne/deezer-datasync/actions/workflows/docker-publish.yml)
 
-`deezer-datasync` synchronizes data from Deezer:
+`deezer-datasync` synchronizes user data from Deezer:
 
 - Favorite albums
 - Favorite artists
@@ -23,12 +23,15 @@ your-git-repo/
 └── playlists.json
 ```
 
-See the [changelog][1].
+Using GitHub as a backend can seem peculiar, but it fits my needs very well: keeping a full history
+of my profile and easily check daily diffs, especially to make sure Deezer isn't altering my data.
+
+See the [changelog][changelog].
 
 # Disclaimer
 
 **This project is mainly developed for my personal use and as such, is experimental.** However I'll
-be glad to help if you encounter any [issue][2].
+be glad to help if you encounter any [issue][issues].
 
 # Usage
 
@@ -36,8 +39,8 @@ be glad to help if you encounter any [issue][2].
 
 ### Deezer token
 
-You'll need a Deezer token to use this application. You can follow Deezer's instructions [here][3].
-I have also written a documentation [here][4].
+You'll need a Deezer token to use this application. You can follow Deezer's instructions
+[here][oauth1]. I have also written a documentation [here][oauth2].
 
 #### Warning (2025-02-05)
 
@@ -54,38 +57,13 @@ spoon.
 
 ### Configuration file
 
-Prepare a configuration file in [HOCON][5] format:
-
-``` hocon
-config {
-  application {
-    zone = "your-zone" // e.g Europe/Paris"
-  }
-  deezer {
-    profile {
-      userId = your-user-id
-      // Playlists to backup -- leave empty to backup *all* your playlists
-      playlistIds = [id1, id2]
-    }
-    url = "https://api.deezer.com"
-    token = your-deezer-token
-    // Maximum number of results per request. 100 is a hard minimum to limit the number of requests.
-    maxResults = 200
-    // Number of calls per second to the API. 10 is a hard maximum to avoid Deezer's limit (50/5 seconds).
-    rateLimit = 5
-  }
-  github {
-    token = your-github-token
-    repo = your-repo // in the format owner/repo
-    branch = your-branch
-  }
-}
-```
+To use the application, you need to prepare a configuration file in [HOCON][hocon] format. An
+example file is provided in the source code, see [application.conf][appconf].
 
 ## Option 1: Run with Docker
 
 A multiplatform image (AMD64 and ARMv7 -- for execution on a Raspberry Pi 3) is available
-on [Dockerhub][6]:
+on [Dockerhub][dockerhub]:
 
 ``` shell
 # Pull the latest version of the image
@@ -95,13 +73,17 @@ docker pull alecigne/deezer-datasync:latest
 docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/deezer-datasync
 ```
 
+Only the last stable version is available on Dockerhub (`master` branch).
+
 ## Option 2: From a Jar
 
-Download a Jar in the [releases][7] section, then run it using Java 17:
+Download a Jar in the [releases][releases] section, then run it using Java 17:
 
 ``` shell
 java -jar -Dconfig.file=/path/to/application.conf deezer-datasync.jar
 ```
+
+Only the stable versions are available as releases (`master` branch).
 
 ## Option 3: Build from source
 
@@ -115,28 +97,42 @@ Playlist filenames (`{id}_{title}.json`) are generated from "clean" playlist tit
 * Any group of non-alphanumeric characters (size 1 or more) is converted to an underscore.
 * Any trailing underscore is removed from the title.
 
-You can see basic cases in [issue #28][8]. This issue was the basis for the parameterized test in
-[`GitHubMapperTest.java`][9]. There is also a [property-based test][10] in
-[`GitHubMapperPropertyTest.java`][11].
+You can see basic cases in [issue #28][issue28]. This issue was the basis for the parameterized test
+in [`GitHubMapperTest.java`][mapper-test]. There is also a [property-based test][pbt] in
+[`GitHubMapperPropertyTest.java`][property-test].
 
-[1]: CHANGELOG.md
+[changelog]:
+CHANGELOG.md
 
-[2]: https://github.com/alecigne/deezer-datasync/issues
+[issues]:
+https://github.com/alecigne/deezer-datasync/issues
 
-[3]: https://developers.deezer.com/api/oauth
+[oauth1]:
+https://developers.deezer.com/api/oauth
 
-[4]: https://lecigne.net/notes/deezer-token.html
+[oauth2]:
+https://lecigne.net/notes/deezer-token.html
 
-[5]: https://github.com/lightbend/config/blob/main/HOCON.md
+[hocon]:
+https://github.com/lightbend/config/blob/main/HOCON.md
 
-[6]: https://hub.docker.com/r/alecigne/deezer-datasync
+[dockerhub]:
+https://hub.docker.com/r/alecigne/deezer-datasync
 
-[7]: https://github.com/alecigne/deezer-datasync/releases
+[releases]:
+https://github.com/alecigne/deezer-datasync/releases
 
-[8]: https://github.com/alecigne/deezer-datasync/issues/28
+[issue28]:
+https://github.com/alecigne/deezer-datasync/issues/28
 
-[9]: https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperTest.java
+[mapper-test]:
+https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperTest.java
 
-[10]: https://en.wikipedia.org/wiki/Software_testing#Property_testing
+[pbt]:
+https://en.wikipedia.org/wiki/Software_testing#Property_testing
 
-[11]: https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java
+[property-test]:
+https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java
+
+[appconf]:
+./src/main/resources/application.conf

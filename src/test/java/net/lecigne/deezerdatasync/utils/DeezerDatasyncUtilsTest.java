@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 class DeezerDatasyncUtilsTest {
 
   @ParameterizedTest
-  @MethodSource("normalData")
+  @MethodSource
   void should_compute_right_number_of_remaining_calls(int total, int limit, int expected) {
     // When
     int numberOfCalls = DeezerDatasyncUtils.computeRemainingCalls(total, limit);
@@ -25,8 +25,7 @@ class DeezerDatasyncUtilsTest {
   }
 
   @ParameterizedTest
-  @MethodSource("outliers")
-  @SuppressWarnings("ResultOfMethodCallIgnored")
+  @MethodSource
   void should_not_accept_outliers_when_computing_number_of_remaining_calls(int total, int limit) {
     // "When"
     ThrowingCallable throwingCallable = () -> DeezerDatasyncUtils.computeRemainingCalls(total, limit);
@@ -37,7 +36,7 @@ class DeezerDatasyncUtilsTest {
         .hasMessage("Limit must be greater than zero.");
   }
 
-  public static Stream<Arguments> normalData() {
+  public static Stream<Arguments> should_compute_right_number_of_remaining_calls() {
     return Stream.of(
         arguments(250, 100, 2),
         arguments(150, 100, 1),
@@ -50,7 +49,7 @@ class DeezerDatasyncUtilsTest {
     );
   }
 
-  public static Stream<Arguments> outliers() {
+  public static Stream<Arguments> should_not_accept_outliers_when_computing_number_of_remaining_calls() {
     return Stream.of(arguments(100, 0), arguments(100, -2));
   }
 
