@@ -55,51 +55,7 @@ spoon.
 ### Configuration file
 
 To use the application, you need to prepare a configuration file in [HOCON][hocon] format. An
-example file is provided in the source code, see `application.conf`. Here's also a minimal example:
-
-``` hocon
-config {
-  application {
-    userId = your-user-id   // e.g. 1234567
-    zone = your-zone        // e.g. Europe/Paris
-  }
-  deezer {
-    url = "https://api.deezer.com"
-    token = your-deezer-token
-  }
-  github {
-    token = your-github-token
-    repo = your-repo      // in the format owner/repo
-    branch = your-branch  // e.g. master
-  }
-}
-```
-
-And below is a more complete example with all the optional parameters:
-
-``` hocon
-config {
-  application {
-    userId = your-user-id // e.g 1234567
-    zone = your-zone      // e.g Europe/Paris"
-  }
-  deezer {
-    url = "https://api.deezer.com"
-    token = your-deezer-token
-    // Maximum number of results per request. Optional, defaults to 200. 100 is a hard minimum to
-    // limit the number of requests.
-    maxResults = 200
-    // Number of calls per second to the API. Optional, defaults to 5. 10 is a hard maximum to avoid
-    // Deezer's limit (50/5 seconds). Please be reasonable and don't hammer their servers.
-    rateLimit = 5
-  }
-  github {
-    token = your-github-token
-    repo = your-repo      // in the format owner/repo
-    branch = your-branch  // e.g. master
-  }
-}
-```
+example file is provided in the source code, see [application.conf][appconf].
 
 ## Option 1: Run with Docker
 
@@ -174,3 +130,6 @@ https://en.wikipedia.org/wiki/Software_testing#Property_testing
 
 [property-test]:
 https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java
+
+[appconf]:
+./src/main/resources/application.conf
