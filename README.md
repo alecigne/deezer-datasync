@@ -23,6 +23,9 @@ your-git-repo/
 └── playlists.json
 ```
 
+Using GitHub as a backend can seem peculiar, but it fits my needs very well: keeping a full history
+of my profile and easily check daily diffs, especially to make sure Deezer isn't altering my data.
+
 See the [changelog][changelog].
 
 # Disclaimer

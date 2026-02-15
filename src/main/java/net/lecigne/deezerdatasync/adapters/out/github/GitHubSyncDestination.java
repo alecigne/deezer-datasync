@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.lecigne.deezerdatasync.application.ports.out.SyncDestination;
 import net.lecigne.deezerdatasync.bootstrap.config.DeezerDatasyncConfig;
 import net.lecigne.deezerdatasync.domain.common.DeezerData;
+import net.lecigne.deezerdatasync.domain.common.SyncException;
 import okhttp3.OkHttpClient;
 import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHRepository;
@@ -44,7 +45,7 @@ public class GitHubSyncDestination implements SyncDestination {
     } catch (IOException e) {
       var err = "Error while saving to GitHub";
       log.error(err, e);
-      throw new GitHubSyncException(err, e);
+      throw new SyncException(err, e);
     }
   }
 
