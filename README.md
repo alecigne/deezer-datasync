@@ -64,10 +64,10 @@ on [Dockerhub][dockerhub]:
 
 ``` shell
 # Pull the latest version of the image
-docker pull alecigne/deezerConfig-datasync:latest
+docker pull alecigne/deezer-datasync:latest
 
 # Run the container with the latest image (check that your config file is compatible!)
-docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/deezerConfig-datasync
+docker run -it -v /absolute/path/to/application.conf:/application.conf alecigne/deezer-datasync
 ```
 
 Only the last stable version is available on Dockerhub (`master` branch).
@@ -77,7 +77,7 @@ Only the last stable version is available on Dockerhub (`master` branch).
 Download a Jar in the [releases][releases] section, then run it using Java 17:
 
 ``` shell
-java -jar -Dconfig.file=/path/to/application.conf deezerConfig-datasync.jar
+java -jar -Dconfig.file=/path/to/application.conf deezer-datasync.jar
 ```
 
 Only the stable versions are available as releases (`master` branch).
