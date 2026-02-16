@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.6.0](https://github.com/alecigne/deezer-datasync/tree/v0.6.0) - 2026-02-15
+## [v0.6.0](https://github.com/alecigne/deezer-datasync/tree/v0.6.0) - 2026-02-16
 
 :warning: **This version introduces a breaking change in the configuration file.**
 
