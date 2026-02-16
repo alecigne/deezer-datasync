@@ -51,10 +51,6 @@ It seems that Deezer has disabled the creation of 'apps':
 This means you can't create the token that this project needs to run. If you have a valid API token
 somewhere, it should work. At least my instance still runs for now. Not for long?
 
-There's nothing I can do about that except encourage you to give your money to another service.
-Hopefully with a logo that won't make you want to tear your eyes out of their sockets with a rusty
-spoon.
-
 ### Configuration file
 
 To use the application, you need to prepare a configuration file in [HOCON][hocon] format. An
@@ -80,7 +76,7 @@ Only the last stable version is available on Dockerhub (`master` branch).
 Download a Jar in the [releases][releases] section, then run it using Java 17:
 
 ``` shell
-java -jar -Dconfig.file=/path/to/application.conf deezer-datasync.jar
+java -Dconfig.file=/path/to/application.conf -jar deezer-datasync.jar
 ```
 
 Only the stable versions are available as releases (`master` branch).
@@ -126,13 +122,13 @@ https://github.com/alecigne/deezer-datasync/releases
 https://github.com/alecigne/deezer-datasync/issues/28
 
 [mapper-test]:
-https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperTest.java
+./src/test/java/net/lecigne/deezerdatasync/adapters/out/github/GitHubMapperTest.java
 
 [pbt]:
 https://en.wikipedia.org/wiki/Software_testing#Property_testing
 
 [property-test]:
-https://github.com/alecigne/deezer-datasync/blob/master/src/test/java/net/lecigne/deezerdatasync/repository/destinations/github/GitHubMapperPropertyTest.java
+./src/test/java/net/lecigne/deezerdatasync/adapters/out/github/GitHubMapperPropertyTest.java
 
 [appconf]:
 ./src/main/resources/application.conf
