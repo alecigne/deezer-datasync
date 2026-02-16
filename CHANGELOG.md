@@ -12,6 +12,7 @@ Refactor entire codebase. This version prepares the way for v1.0.0.
 - Get rid of a few instances of primitive obsession (using value objects) while keeping final
   serialized format for now.
 - Improve logging.
+- Add more tests.
 
 ## [v0.5.5](https://github.com/alecigne/deezer-datasync/tree/v0.5.5) - 2026-02-14
 
