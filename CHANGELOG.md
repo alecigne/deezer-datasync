@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.6.1](https://github.com/alecigne/deezer-datasync/tree/v0.6.1) - 2026-02-21
+
+- Push both `latest` and version tags to Docker Hub.
+- Update dependencies.
+
 ## [v0.6.0](https://github.com/alecigne/deezer-datasync/tree/v0.6.0) - 2026-02-16
 
 :warning: **This version introduces a breaking change in the configuration file.**
