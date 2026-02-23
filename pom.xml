@@ -14,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <retrofit.version>3.0.0</retrofit.version>
     <logback.version>1.5.32</logback.version>
-    <maven.testing.version>3.5.4</maven.testing.version>
+    <maven.testing.version>3.5.5</maven.testing.version>
     <lombok.version>1.18.42</lombok.version>
   </properties>
 
@@ -55,7 +55,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.21.0</version>
+      <version>2.21.1</version>
     </dependency>
     <dependency>
       <groupId>com.typesafe</groupId>
