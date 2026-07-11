@@ -9,7 +9,7 @@
 - List of playlists
 - Individual playlists with their associated tracks
 
-Current version is v0.6.1.
+Current version is v0.6.2.
 
 As of the current version, only GitHub is supported as a backend; the application will commit JSON
 files in this arborescence:
